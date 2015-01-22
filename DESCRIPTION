@@ -1,0 +1,9 @@
+Package: j.misc
+Type: Package
+Title: Jiang Miscellaneous
+Version: 1.0
+Date: 2015-01-21
+Author: Mike Jiang
+Maintainer: Mike Jiang <wjiang2@fhcrc.org>
+Description: Useful functions for R package development
+License: GPL-2 | GPL-3
