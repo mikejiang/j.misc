@@ -1,0 +1,7 @@
+language: r
+warnings_are_errors: false
+env:
+notifications:
+  email:
+    on_success: change
+    on_failure: change

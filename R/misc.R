@@ -1,3 +1,7 @@
+unlockNamespace <- function(env) {
+  .Call('unlockNamespace', PACKAGE = 'j.misc', env)
+}
+
 #' update a function within a package namespace
 #' 
 #' This is useful for testing a function patch without reinstalling the package or loading entire package into global session
@@ -37,7 +41,7 @@ updateFunc <-function(name, pkgName){
   
   #insert the global function into package namespace
   env1 <- getNamespace(pkgName)
-  openCyto:::unlockNamespace(env1)
+  unlockNamespace(env1)
   unlockBinding(name, env1)
   env1[[name]] <- eval(funcSym)
   lockBinding(name, env1)
