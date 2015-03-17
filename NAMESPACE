@@ -1,1 +1,2 @@
+useDynLib(j.misc)
 exportPattern("^[[:alpha:]]+")
