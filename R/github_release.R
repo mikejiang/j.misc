@@ -1,20 +1,24 @@
 #' upload the R package binary build as an asset to its github release
-#' @param repo Repository name 
-#' @param username User name
-#' @param token character oAuth2.0 token. If not supplied, then try o read it from the environment variable 'GITHUB_TOKEN'
+#' @param repo Repository address in the format username/repo. Default value is read from the environment variable 'TRAVIS_REPO_SLUG'  
+#' @param token character oAuth2.0 token. Default value is read from the environment variable 'GITHUB_TOKEN'
 #' @param release_tag the tag where the asset is associated to
 #' @param path the folder where package binary tar ball stores
-#' @param ... other arguments passed to httr APIs (i.e. verbose())
-github_release <- function(repo, username, token = Sys.getenv("GITHUB_TOKEN"), release_tag = "linux", path = ".", ...){
+github_release <- function(repo = Sys.getenv("TRAVIS_REPO_SLUG"), token = Sys.getenv("GITHUB_TOKEN"), release_tag = "linux", path = "."){
+  
+  if(repo=="")
+    stop("repo is not provided!")
+  
+  username <- dirname(repo)
+  repo <- basename(repo)
   
   if(token=="")
-    stop("token is not found!")
+    stop("token is not provided!")
   
   auth_head <- add_headers(Authorization = paste("token", token))
   
   #get the assets url
   release_url <- file.path("https://api.github.com/repos", username, repo, "releases/tags", release_tag)      
-  req <- GET(release_url, auth_head, ...)
+  req <- GET(release_url, auth_head)
   stop_for_status(req)
   res <- content(req)
   upload_url <- res[["upload_url"]]
@@ -23,7 +27,7 @@ github_release <- function(repo, username, token = Sys.getenv("GITHUB_TOKEN"), r
   #delete if it exists already
   if(length(assets) > 0){
     asset_url <- assets[[1]][["url"]]
-    res <- DELETE(asset_url, auth_head, ...)
+    res <- DELETE(asset_url, auth_head)
     stop_for_status(res)
   }
   
@@ -39,7 +43,7 @@ github_release <- function(repo, username, token = Sys.getenv("GITHUB_TOKEN"), r
   res <- POST(upload_url
             , body = upload_file(filePath, type = "application/x-gzip")
             , config = c(auth_head, add_headers(Accept = "application/vnd.github.v3+json"))
-            , ...
+            , verbose()
             )
   stop_for_status(res)
   

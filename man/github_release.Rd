@@ -4,21 +4,17 @@
 \alias{github_release}
 \title{upload the R package binary build as an asset to its github release}
 \usage{
-github_release(repo, username, token = Sys.getenv("GITHUB_TOKEN"),
-  release_tag = "linux", path = ".", ...)
+github_release(repo = Sys.getenv("TRAVIS_REPO_SLUG"),
+  token = Sys.getenv("GITHUB_TOKEN"), release_tag = "linux", path = ".")
 }
 \arguments{
-\item{repo}{Repository name}
+\item{repo}{Repository address in the format username/repo. Default value is read from the environment variable 'TRAVIS_REPO_SLUG'}
 
-\item{username}{User name}
-
-\item{token}{character oAuth2.0 token. If not supplied, then try o read it from the environment variable 'GITHUB_TOKEN'}
+\item{token}{character oAuth2.0 token. Default value is read from the environment variable 'GITHUB_TOKEN'}
 
 \item{release_tag}{the tag where the asset is associated to}
 
 \item{path}{the folder where package binary tar ball stores}
-
-\item{...}{other arguments passed to httr APIs (i.e. verbose())}
 }
 \description{
 upload the R package binary build as an asset to its github release

@@ -9,7 +9,7 @@ after_success:
 # - Rscript -e 'library(covr);coveralls()'
  - mv j.misc*.tar.gz j.misc.tar.gz
  - Rscript -e 'devtools::install()'
- - Rscript -e 'library(j.misc);github_release(repo = "j.misc", username = "mikejiang", release_tag = "linux", verbose())'
+ - Rscript -e 'library(j.misc);github_release()'
 
 notifications:
   email:
