@@ -1,11 +1,14 @@
 #' upload the R package binary build as an asset to its github release
 #' @param repo Repository name 
 #' @param username User name
-#' @param token oAuth2.0 token
+#' @param token character oAuth2.0 token. If not supplied, then try o read it from the environment variable 'GITHUB_TOKEN'
 #' @param release_tag the tag where the asset is associated to
 #' @param path the folder where package binary tar ball stores
 #' @param ... other arguments passed to httr APIs (i.e. verbose())
-github_release <- function(repo, username, token, release_tag = "linux", path = ".", ...){
+github_release <- function(repo, username, token = Sys.getenv("GITHUB_TOKEN"), release_tag = "linux", path = ".", ...){
+  
+  if(token=="")
+    stop("token is not found!")
   
   auth_head <- add_headers(Authorization = paste("token", token))
   

@@ -4,15 +4,15 @@
 \alias{github_release}
 \title{upload the R package binary build as an asset to its github release}
 \usage{
-github_release(repo, username, token, release_tag = "linux", path = ".",
-  ...)
+github_release(repo, username, token = Sys.getenv("GITHUB_TOKEN"),
+  release_tag = "linux", path = ".", ...)
 }
 \arguments{
 \item{repo}{Repository name}
 
 \item{username}{User name}
 
-\item{token}{oAuth2.0 token}
+\item{token}{character oAuth2.0 token. If not supplied, then try o read it from the environment variable 'GITHUB_TOKEN'}
 
 \item{release_tag}{the tag where the asset is associated to}
 
