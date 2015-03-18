@@ -1,17 +1,9 @@
+#' unlock a package namespace
+#' @param env the package namespace to unlock
 unlockNamespace <- function(env) {
   .Call('unlockNamespace', PACKAGE = 'j.misc', env)
 }
 
-#' update a function within a package namespace
-#' 
-#' This is useful for testing a function patch without reinstalling the package or loading entire package into global session
-#' The function has to pre-exist within the package namespace.
-#' 
-#' @param name \code{character} the function name defined in the global session
-#' @param pkgName \code{character} the package name that the patched function will be writing to
-#' 
-#' @examples 
-#' updateFunc("read.ncdfFlowSet", "ncdfFlow")
 .updateFunc_old <- function(name, pkgName){
   funcSym <- as.symbol(name)
   #update the environment of the global function with the package namespace

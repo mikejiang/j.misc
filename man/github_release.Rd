@@ -4,7 +4,8 @@
 \alias{github_release}
 \title{upload the R package binary build as an asset to its github release}
 \usage{
-github_release(repo, username, token, release_tag = "linux", path = ".")
+github_release(repo, username, token, release_tag = "linux", path = ".",
+  ...)
 }
 \arguments{
 \item{repo}{Repository name}
@@ -16,6 +17,8 @@ github_release(repo, username, token, release_tag = "linux", path = ".")
 \item{release_tag}{the tag where the asset is associated to}
 
 \item{path}{the folder where package binary tar ball stores}
+
+\item{...}{other arguments passed to httr APIs (i.e. verbose())}
 }
 \description{
 upload the R package binary build as an asset to its github release
