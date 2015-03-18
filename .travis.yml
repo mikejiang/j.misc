@@ -7,8 +7,9 @@ env:
     secure: kGuHTlqPL81AoOy8f4VmVLZygddxUatdxu0ErFABM24d05Q2Vb3XpI5njAbngYqOYG+2qBvEUPEFbA45moxcO3spwG/ObVNvzuH6nfynv3y/I+E/+gpf+7nHtFdwbRt4rSFtnoy0TqAsDlX/ST7qnn3uQf2cf9VqENiJfM9I36I=
 after_success:
 # - Rscript -e 'library(covr);coveralls()'
+ - rm j.misc*.tar.gz
+ - R CMD INSTALL --build .
  - mv j.misc*.tar.gz j.misc.tar.gz
- - Rscript -e 'devtools::install()'
  - Rscript -e 'library(j.misc);github_release()'
 
 notifications:
