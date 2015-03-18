@@ -3,7 +3,14 @@ warnings_are_errors: false
 r_github_packages:
   - jimhester/covr
 after_success:
-  - Rscript -e 'library(covr);coveralls()'
+ - Rscript -e 'library(covr);coveralls()'
+ - mv j.misc*.tar.gz j.misc.tar.gz
+ - Rscript -e 'devtools::install()'
+ - Rscript -e 'j.misc::github_release("j.misc", "mikejiang", $GITHUB_TOKEN)'
+
+env:
+  global:
+    secure: kGuHTlqPL81AoOy8f4VmVLZygddxUatdxu0ErFABM24d05Q2Vb3XpI5njAbngYqOYG+2qBvEUPEFbA45moxcO3spwG/ObVNvzuH6nfynv3y/I+E/+gpf+7nHtFdwbRt4rSFtnoy0TqAsDlX/ST7qnn3uQf2cf9VqENiJfM9I36I=
 notifications:
   email:
     on_success: change

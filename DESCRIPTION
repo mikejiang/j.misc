@@ -6,4 +6,5 @@ Date: 2015-01-21
 Author: Mike Jiang
 Maintainer: Mike Jiang <wjiang2@fhcrc.org>
 Description: Useful functions for R package development
+Depends: httr
 License: GPL-2 | GPL-3
