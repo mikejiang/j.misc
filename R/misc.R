@@ -1,5 +1,6 @@
 #' unlock a package namespace
 #' @param env the package namespace to unlock
+#' @useDynLib j.misc
 unlockNamespace <- function(env) {
   .Call('unlockNamespace', PACKAGE = 'j.misc', env)
 }
@@ -24,7 +25,7 @@ unlockNamespace <- function(env) {
 #' \dontrun{
 #' updateFunc("read.ncdfFlowSet", "ncdfFlow")
 #' }
-#' 
+#' @export 
 updateFunc <-function(name, pkgName){
   funcSym <- as.symbol(name)
   
@@ -38,4 +39,23 @@ updateFunc <-function(name, pkgName){
   env1[[name]] <- eval(funcSym)
   lockBinding(name, env1)
   lockEnvironment(env1)
+}
+
+#' pretty layout of proto objects hierarchy
+#' 
+#' default layout does not play well with the bigger tree
+#' @param e environment or proto object
+#' @export 
+plot_proto <- function(e){
+  g <- proto::graph.proto(e,child.to.parent = F)
+#   browser()
+  if(length(nodes(g)) == 0)
+    message("No proto node to graph!")
+  else
+    Rgraphviz::renderGraph(Rgraphviz::layoutGraph(g, attrs = list(graph = list(rankdir="LR")
+                                                  , node = list(fontsize = 40,fixedsize = F, shape = "none")
+#                                                  , edge = list(style = "dashed")
+                                              )
+                            )
+  )
 }
